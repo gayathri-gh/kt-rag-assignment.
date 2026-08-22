@@ -1,10 +1,10 @@
-
 import os
 import faiss
+import numpy as np
 
 from flask import Flask, render_template, request, jsonify
-from sentence_transformers import SentenceTransformer
 from google import genai
+from google.genai import types
 
 
 app = Flask(__name__)
@@ -57,24 +57,45 @@ chunks = create_chunks(knowledge)
 
 
 # ==============================
-# EMBEDDING MODEL
+# GEMINI EMBEDDINGS
 # ==============================
 
-embedding_model = SentenceTransformer(
-    "all-MiniLM-L6-v2"
-)
+EMBEDDING_MODEL = "gemini-embedding-001"
+
+# Smaller dimension helps keep memory usage low on Render.
+EMBEDDING_DIMENSION = 768
+
+
+def create_embeddings(texts, task_type):
+
+    response = client.models.embed_content(
+        model=EMBEDDING_MODEL,
+        contents=texts,
+        config=types.EmbedContentConfig(
+            output_dimensionality=EMBEDDING_DIMENSION,
+            task_type=task_type
+        )
+    )
+
+    vectors = [
+        embedding.values
+        for embedding in response.embeddings
+    ]
+
+    return np.array(
+        vectors,
+        dtype="float32"
+    )
 
 
 # ==============================
-# CREATE EMBEDDINGS
+# CREATE KNOWLEDGE EMBEDDINGS
 # ==============================
 
-embeddings = embedding_model.encode(
+embeddings = create_embeddings(
     chunks,
-    convert_to_numpy=True
+    "RETRIEVAL_DOCUMENT"
 )
-
-embeddings = embeddings.astype("float32")
 
 
 # ==============================
@@ -94,13 +115,9 @@ index.add(embeddings)
 
 def retrieve_documents(question, top_k=4):
 
-    question_embedding = embedding_model.encode(
+    question_embedding = create_embeddings(
         [question],
-        convert_to_numpy=True
-    )
-
-    question_embedding = question_embedding.astype(
-        "float32"
+        "RETRIEVAL_QUERY"
     )
 
     distances, indices = index.search(
