@@ -1,0 +1,164 @@
+
+KNOWLEDGE TRANSFER DOCUMENT
+
+TITLE: INTRODUCTION TO ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING
+
+1. INTRODUCTION
+
+Artificial Intelligence, commonly known as AI, is a branch of computer science that focuses on developing systems capable of performing tasks that normally require human intelligence.
+
+These tasks include learning, reasoning, problem solving, understanding natural language, recognizing images, and making decisions.
+
+Artificial Intelligence is used in many modern applications including virtual assistants, recommendation systems, autonomous vehicles, fraud detection, medical diagnosis, chatbots, search engines, and intelligent automation.
+
+2. MACHINE LEARNING
+
+Machine Learning is a major subfield of Artificial Intelligence.
+
+Machine Learning enables computers to learn patterns from data without being explicitly programmed for every possible situation.
+
+A machine learning system normally contains data, features, an algorithm, a training process, and an evaluation process.
+
+3. TYPES OF MACHINE LEARNING
+
+There are three major types of machine learning:
+
+1. Supervised Learning
+2. Unsupervised Learning
+3. Reinforcement Learning
+
+Supervised learning uses labeled training data.
+
+Classification is a supervised learning technique used to predict categories.
+
+For example, an email can be classified as spam or not spam.
+
+Regression predicts numerical values.
+
+For example, a house price can be predicted using location, size, and number of rooms.
+
+Unsupervised learning works with data that does not have predefined labels.
+
+Clustering is a common unsupervised learning technique.
+
+Reinforcement learning involves an agent interacting with an environment.
+
+The agent receives rewards or penalties and learns a strategy to maximize its cumulative reward.
+
+4. DEEP LEARNING
+
+Deep Learning is a subset of machine learning that uses neural networks with multiple layers.
+
+Deep learning is useful for large and complex datasets such as images, audio, and natural language.
+
+Convolutional Neural Networks are commonly used for image-related tasks.
+
+5. NATURAL LANGUAGE PROCESSING
+
+Natural Language Processing, or NLP, is a field of AI that enables computers to process and understand human language.
+
+Common NLP tasks include text classification, sentiment analysis, translation, summarization, question answering, speech recognition, and information extraction.
+
+Important NLP concepts include tokenization, stemming, lemmatization, stop-word removal, embeddings, and attention mechanisms.
+
+6. LARGE LANGUAGE MODELS
+
+Large Language Models, commonly called LLMs, are neural network models trained on large amounts of text data.
+
+LLMs can perform tasks such as answering questions, summarizing documents, generating text, writing code, translating languages, and extracting information.
+
+7. EMBEDDINGS
+
+Embeddings are numerical representations of text.
+
+An embedding converts information into a vector representation.
+
+Similar pieces of information generally have similar vector representations.
+
+Embeddings are important in semantic search and Retrieval-Augmented Generation systems.
+
+8. RETRIEVAL-AUGMENTED GENERATION
+
+Retrieval-Augmented Generation, commonly called RAG, combines information retrieval with language generation.
+
+A RAG system first searches an external knowledge source for relevant information.
+
+The retrieved information is then provided to a language model as context.
+
+A typical RAG pipeline contains:
+
+Document loading
+Document splitting
+Embedding generation
+Vector storage
+Similarity search
+Context retrieval
+Answer generation
+
+9. FAISS
+
+FAISS stands for Facebook AI Similarity Search.
+
+FAISS is a library designed for efficient similarity search over vectors.
+
+It can be used to store embeddings and quickly find vectors that are similar to a query vector.
+
+FAISS is useful for building small and medium-sized RAG prototypes.
+
+10. VECTOR DATABASE
+
+A vector database stores vector representations of information.
+
+Instead of searching only for exact keywords, vector databases allow semantic similarity search.
+
+For example, if a document contains the phrase "artificial intelligence", a user might ask "What is AI?" and the system can still retrieve relevant information because the meanings are similar.
+
+11. RAG ADVANTAGES
+
+RAG can reduce hallucination by providing the language model with relevant external context.
+
+RAG allows applications to work with private or domain-specific documents.
+
+Knowledge can be updated by modifying the document collection instead of retraining the entire language model.
+
+RAG can be used for company documentation, educational material, manuals, policies, research papers, and customer support.
+
+12. RAG LIMITATIONS
+
+RAG quality depends on the quality of the documents.
+
+Poor chunking can result in irrelevant retrieval.
+
+Incorrect embeddings can reduce search quality.
+
+If the retrieval system selects irrelevant information, the language model may produce an incorrect answer.
+
+13. APPLICATIONS OF RAG
+
+RAG systems can be used in educational assistants, company knowledge bases, technical documentation assistants, customer support systems, research assistants, and enterprise chatbots.
+
+14. PROJECT WORKFLOW
+
+The knowledge transfer document is stored in a text file.
+
+The application reads the document and divides it into chunks.
+
+Each chunk is converted into an embedding.
+
+The embeddings are stored using FAISS.
+
+When the user enters a question, the application searches the FAISS index.
+
+The most relevant document chunks are retrieved.
+
+The retrieved context is sent to the Gemini language model.
+
+Gemini generates an answer using the retrieved information.
+
+The final answer is displayed through a web interface.
+
+15. CONCLUSION
+
+Retrieval-Augmented Generation is an important technique for developing AI applications that can answer questions using external knowledge.
+
+The combination of document processing, embeddings, vector search, retrieval, and large language models provides a practical way to build domain-specific AI assistants.
