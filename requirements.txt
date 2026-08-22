@@ -2,6 +2,4 @@ Flask
 gunicorn
 numpy
 faiss-cpu
-sentence-transformers
 google-genai
-pyngrok
