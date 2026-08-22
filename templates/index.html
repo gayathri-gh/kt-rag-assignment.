@@ -1,0 +1,199 @@
+import os
+
+os.makedirs("templates", exist_ok=True)
+
+html_code = '''
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>KT RAG Assistant</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 850px;
+            margin: 50px auto;
+        }
+
+        .header {
+            background: #1f4e79;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .chat {
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            font-size: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #1f4e79;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #163a5c;
+        }
+
+        #answer {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>🤖 KT RAG Assistant</h1>
+
+        <p>
+            Knowledge Transfer Question Answering System
+        </p>
+
+    </div>
+
+    <div class="chat">
+
+        <textarea
+            id="question"
+            placeholder="Ask a question about Artificial Intelligence, Machine Learning, RAG, FAISS..."
+        ></textarea>
+
+        <button onclick="askQuestion()">
+            Ask Question
+        </button>
+
+        <div id="answer">
+            Your answer will appear here.
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+async function askQuestion() {
+
+    const question =
+        document.getElementById("question").value.trim();
+
+    const answerBox =
+        document.getElementById("answer");
+
+
+    if (!question) {
+
+        answerBox.innerText =
+            "Please enter a question.";
+
+        return;
+    }
+
+
+    answerBox.innerText =
+        "🔎 Searching knowledge base...";
+
+
+    try {
+
+        const response =
+            await fetch("/ask", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+                    question: question
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        answerBox.innerText =
+            data.answer;
+
+
+    } catch (error) {
+
+        answerBox.innerText =
+            "❌ Error connecting to server.";
+
+        console.error(error);
+
+    }
+
+}
+
+</script>
+
+</body>
+
+</html>
+'''
+
+with open(
+    "templates/index.html",
+    "w",
+    encoding="utf-8"
+) as f:
+    f.write(html_code)
+
+print("✅ index.html created successfully!")
