@@ -1,17 +1,4 @@
-# ==========================================
-# CREATE TEMPLATES FOLDER
-# ==========================================
 
-import os
-
-os.makedirs("templates", exist_ok=True)
-
-
-# ==========================================
-# HTML CODE
-# ==========================================
-
-html_code = """
 <!DOCTYPE html>
 
 <html lang="en">
@@ -547,25 +534,6 @@ html_code = """
 </body>
 
 </html>
-"""
 
 
-# ==========================================
-# SAVE index.html
-# ==========================================
 
-with open(
-    "templates/index.html",
-    "w",
-    encoding="utf-8"
-) as file:
-
-    file.write(html_code)
-
-
-print("✅ templates/index.html created successfully!")
-
-print(
-    "📁 Location:",
-    os.path.abspath("templates/index.html")
-)
